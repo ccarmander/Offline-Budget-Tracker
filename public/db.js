@@ -10,7 +10,7 @@ request.onupgradeneeded = function(event) {
 request.onsuccess = function(event) {
     db = event.target.result;
 
-    if(nagigator.onLine) {
+    if(navigator.onLine) {
         checkDatabase();
     }
 };
@@ -20,16 +20,16 @@ console.log(`Something aint right! ${event.target.errorCode}`)
 };
 
 function saveRecord(record) {
-    const transaction = db.transaction([`pending`], `readwrite`);
-    const store = transaction.createObjectStore(`pending`);
+    const transaction = db.transaction(['pending'], 'readwrite');
+    const store = transaction.objectStore('pending');
 
     store.add(record);
 }
 
 function checkDatabase() {
 
-    const transaction = db.transaction([`pending`], `readwrite`);
-    const store = transaction.createObjectStore(`pending`);
+    const transaction = db.transaction(['pending'], 'readwrite');
+    const store = transaction.objectStore('pending');
 
     const getAll = store.getAll();
 
@@ -45,7 +45,7 @@ function checkDatabase() {
             })
             .then(response => response.json())
             .then(() => {
-                const transaction = db.transaction([`pending`], 'readwrite');
+                const transaction = db.transaction(['pending'], 'readwrite');
 
                 const store = transaction.objectStore('pending');
 
